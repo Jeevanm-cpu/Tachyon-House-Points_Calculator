@@ -1,4 +1,4 @@
-# Tachyon — Beyond Space v2.0
+# Tachyon — Beyond Space 
 
 A dark, cinematic House Points Calculator for the Tachyon House Cup. It has a real-time WebGL black-hole scene, liquid-glass surfaces, 3D house cards, animated rankings, and persistent local scoring.
 
@@ -48,10 +48,3 @@ Tachyon_Beyond_Space/
 - Written for recent Chrome, Edge, Brave, Firefox, and Safari. This build has not been run in a browser yet, so treat compatibility as unverified. WebGL is used when available.
 - `backdrop-filter` glass effects need a modern browser; older browsers show the same layout with more opaque surfaces.
 - Google Fonts need an internet connection; system fonts are the fallback.
-
-## Known limitations
-- The black hole is a physically inspired approximation (weak-field bending, not a full general-relativity integrator). It runs ~220 ray steps per pixel, so frame rate depends on the GPU; render resolution is capped at 1.5x.
-- If the WebGL context is lost, the scene switches to the CSS fallback and does not reinitialize until the page is reloaded.
-- Scores live in one browser only; there is no sharing between devices or people.
-- Sound is synthesized with Web Audio and may be silent on browsers with strict autoplay or audio policies until the user toggles it on.
-- The "3D", "4D", and "5D" wording describes a visual illusion made from perspective, parallax, lighting, and animation. It is not literal extra physical dimensions.
