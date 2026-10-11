@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Track, compare, and celebrate Tachyon House Cup points.">
+  <meta name="theme-color" content="#090711">
+  <title>Tachyon — Beyond Space | House Cup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="grid-overlay"></span>
+  </div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Tachyon home">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span>TACHYON<span class="brand-sub">HOUSE CUP</span></span>
+      </a>
+      <div class="header-actions">
+        <button class="pill-button btn-sweep" id="soundToggle" type="button" aria-pressed="false" aria-label="Sound is off. Enable sound effects.">
+          <svg class="icon-sound-off" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="m16 9 6 6M22 9l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-sound-on" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+            <path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M16 9.5a5 5 0 0 1 0 5M18.5 7a8 8 0 0 1 0 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span class="sound-toggle-label">Sound off</span>
+        </button>
+        <span class="live-pill"><span class="live-dot" aria-hidden="true"></span>Scoreboard live</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="heroSection" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">Inter-house championship</p>
+          <h1 id="heroTitle">Every point<br><span>counts.</span></h1>
+          <p class="hero-lede">Track scores. Compare houses. Crown the winner.</p>
+          <p class="hero-status"><span class="status-pulse" aria-hidden="true"></span>Four houses · one champion</p>
+          <p class="readout" aria-hidden="true">
+            <span>Gravity field <b>active</b></span>
+            <span class="readout-line"></span>
+            <span id="cosmicCoordinates">X 50.0 · Y 50.0</span>
+          </p>
+        </div>
+        <div class="scene" id="blackHoleScene" aria-hidden="true">
+          <canvas id="blackHoleCanvas"></canvas>
+          <div class="scene-fallback">
+            <span class="fallback-disk"></span>
+            <span class="fallback-hole"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="score-grid" id="scoreCards" aria-label="House scores"></section>
+
+      <div class="content-grid">
+        <section class="panel entry-panel" aria-labelledby="entryTitle">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Score entry</p>
+              <h2 id="entryTitle">Add points</h2>
+            </div>
+            <span class="heading-icon" aria-hidden="true">+</span>
+          </div>
+
+          <form id="pointsForm" novalidate>
+            <label for="houseSelect">Select house</label>
+            <select id="houseSelect" name="house">
+              <option value="ALPHA">ALPHA</option>
+              <option value="INFER">INFER</option>
+              <option value="MATRIX">MATRIX</option>
+              <option value="LAYER">LAYER</option>
+            </select>
+
+            <label for="pointsInput">Points earned</label>
+            <div class="input-wrap">
+              <input id="pointsInput" name="points" type="text" inputmode="numeric" autocomplete="off"
+                     placeholder="e.g. 25" aria-describedby="formMessage">
+              <span aria-hidden="true">PTS</span>
+            </div>
+
+            <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+            <button class="primary-button btn-sweep" id="submitButton" type="submit">
+              Add points <span class="arrow" aria-hidden="true">↗</span>
+            </button>
+          </form>
+
+          <div class="winner-callout" id="winnerCallout">
+            <div class="trophy" aria-hidden="true">♛</div>
+            <div>
+              <p class="eyebrow" id="winnerEyebrow">Current leader</p>
+              <h3 id="winnerName">No winner yet</h3>
+              <p id="winnerPoints">Award points to start the competition.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel ranking-panel" aria-labelledby="rankTitle">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">The leaderboard</p>
+              <h2 id="rankTitle">House rankings</h2>
+            </div>
+            <span class="rank-count">4 houses</span>
+          </div>
+          <div class="ranking-list" id="rankingList"></div>
+          <p class="ranking-note"><span class="note-mark" aria-hidden="true">i</span>
+            Tied houses share the same rank. Equal first-place scores are shown together.</p>
+        </section>
+      </div>
+
+      <section class="panel activity-panel" aria-labelledby="activityTitle">
+        <div class="section-head activity-heading">
+          <div>
+            <p class="eyebrow">Recent updates</p>
+            <h2 id="activityTitle">Activity log</h2>
+          </div>
+          <button class="text-button" id="clearHistoryButton" type="button">Clear history</button>
+        </div>
+        <div id="activityList" class="activity-list" aria-live="polite"></div>
+      </section>
+
+      <div class="footer-actions">
+        <p>Made for the Tachyon House Cup <span aria-hidden="true">•</span> Scores are saved on this device.</p>
+        <button class="reset-button btn-sweep" id="resetButton" type="button">↻ Reset all scores</button>
+      </div>
+    </main>
+
+    <footer>
+      <span class="footer-brand">TACHYON <span>HOUSE POINTS CALCULATOR</span></span>
+      <span>PLAY FAIR. AIM HIGH.</span>
+    </footer>
+  </div>
+
+  <div class="winner-toast" id="winnerToast" role="status" aria-live="polite" hidden>
+    <span class="winner-toast-icon" aria-hidden="true">♛</span>
+    <div>
+      <p class="eyebrow">New leader</p>
+      <p class="winner-toast-text" id="winnerToastText"></p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="confirmModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmBody">
+      <h2 id="confirmTitle">Confirm action</h2>
+      <p id="confirmBody"></p>
+      <div class="modal-actions">
+        <button class="ghost-button" id="confirmCancel" type="button">Cancel</button>
+        <button class="danger-button" id="confirmOk" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
