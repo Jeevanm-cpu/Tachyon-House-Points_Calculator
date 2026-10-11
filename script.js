@@ -302,7 +302,7 @@ function renderRankings() {
   let previousScore = null;
   let previousRank = 0;
   ranked.forEach((house, index) => {
-    const rank = house.score === previousScore ? previousRank : index + 1;
+    const rank = house.score === previousScore ? previousRank : previousRank + 1;
     previousScore = house.score;
     previousRank = rank;
 
